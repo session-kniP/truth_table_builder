@@ -1,17 +1,17 @@
 {
-  "name": "logical-expression-parser",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "start": "nodemon app.js",
-    "test": "mocha ./test/Parser.test.js"
-  },
-  "author": "session-kniP <sessionknip@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "mocha": "^8.1.3",
-    "nodemon": "^2.0.4"
-  }
+    "name": "logical-expression-parser",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "nodemon app.js",
+        "test": "mocha ./test/Parser.test.js"
+    },
+    "author": "session-kniP <sessionknip@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mocha": "^8.1.3",
+        "nodemon": "^2.0.4"
+    }
 }

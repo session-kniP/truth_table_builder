@@ -16,7 +16,7 @@ const TokenType = Object.freeze({
     CONJ: ['*'],
     DISJ: ['+'],
     IMPL: ['->'],
-    EQUIV: ['~', '='],
+    EQUIV: ['=', '~'],
 
     LB: ['('],
     RB: [')'],

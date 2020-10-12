@@ -1,5 +1,11 @@
 class Expression {
-    eval() { }
+    eval(value) {}
+
+    toString() {}
+
+    clone() {
+        
+    }
 }
 
 module.exports = Expression;

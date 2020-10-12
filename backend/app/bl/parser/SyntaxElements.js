@@ -1,4 +1,4 @@
-const TokenType = require('./TokenType');
+const TokenType = require('./token/TokenType');
 
 const LogicalOperators = Object.freeze([
     ...TokenType.NOT,

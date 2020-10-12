@@ -1,6 +1,6 @@
 const assert = require('assert').strict;
-const Parser = require('../app/bl/parser//Parser');
-const TokenType = require('../app/bl/parser/TokenType');
+const Parser = require('../app/bl/parser/Parser');
+const TokenType = require('../app/bl/parser/token/TokenType');
 const Lexer = require('../app/bl/parser/Lexer');
 const BinaryExpression = require('../app/bl/expression/BinaryExpression');
 const LogicalExpression = require('../app/bl/logical_expression/LogicalExpression');
@@ -11,19 +11,14 @@ describe('parser tests', () => {
         assert.strictEqual(isToken, true);
     });
     it('operators are all in one array', () => {
-        //const lexer = new Lexer('(-X1 + X2) * X3');
-        //lexer.tokenize();
-        ////console.log(lexer.tokens);
-        //const vals = [false, false, true];
-        //const varTokens = lexer.tokens.filter((t) => t.type === TokenType.VAR);
-        //vals.forEach((el, idx) => varTokens[idx].replaceValue(el));
+        try {
+            const expression = new LogicalExpression(
+                '(-X1 + X2) * X3 + (X3 ~ -X3)'
+            );
 
-        //const parser = new Parser(lexer.tokens);
-
-        //console.log(parser.parse()[0].eval());
-        
-        const expression = new LogicalExpression('(-X1 + X2) * X3 * X1');
-        const combinations = expression.generateInputCombinations();
-        console.log(combinations);
+            console.log(expression.getTruthTable().toString());
+        } catch (e) {
+            console.log(e);
+        }    
     });
 });

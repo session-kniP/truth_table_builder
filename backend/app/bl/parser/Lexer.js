@@ -1,5 +1,5 @@
-const Token = require('./Token');
-const TokenType = require('./TokenType');
+const Token = require('./token/Token');
+const TokenType = require('./token/TokenType');
 const SyntaxElements = require('./SyntaxElements');
 const LogicalOperators = SyntaxElements.LogicalOperators;
 const OperatorParts = SyntaxElements.OperatorParts;
