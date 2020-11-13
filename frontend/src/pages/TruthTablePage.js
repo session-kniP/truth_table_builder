@@ -32,8 +32,8 @@ export const TruthTablePage = () => {
         <div className="truth-table-container justify-content-center m-auto p-3">
             <h1>Truth table builder</h1>
             <div className="row">
-                <ExpressionInput onSubmit={onSubmit} width={8} />
-                <GeneratingUnit width={4}/>
+                <ExpressionInput onSubmit={onSubmit} lg={8} />
+                <GeneratingUnit width={12} md={6} lg={4}/>
             </div>
             {table && (
                 <TruthTable

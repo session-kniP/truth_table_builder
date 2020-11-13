@@ -3,7 +3,7 @@ import { Button, Form, Dropdown, DropdownButton } from 'react-bootstrap';
 import ApplicationContext from '../../context/ApplicationContext';
 import { ToastType } from '../toasts/ToastType';
 
-export const GeneratingUnit = ({ width }) => {
+export const GeneratingUnit = ({ sm, md, lg, xl, width }) => {
     const { showToast } = useContext(ApplicationContext);
     const [unitShowing, setUnitShowing] = useState(false);
 
@@ -19,6 +19,10 @@ export const GeneratingUnit = ({ width }) => {
 
     const shefferStroke = (firstVal, secondVal) => {
         return `-(${firstVal} * ${secondVal})`;
+    };
+
+    const exclusiveOr = (firstVal, secondVal) => {
+        return `(${firstVal} * -${secondVal}) + (-${firstVal} * ${secondVal})`;
     };
 
     const generateExpressionHandler = (e) => {
@@ -40,10 +44,10 @@ export const GeneratingUnit = ({ width }) => {
                 resultRef.current.innerText = pierceArrow(firstVar, secondVar);
                 break;
             case 2:
-                resultRef.current.innerText = shefferStroke(
-                    firstVar,
-                    secondVar
-                );
+                resultRef.current.innerText = shefferStroke(firstVar, secondVar);
+                break;
+            case 3:
+                resultRef.current.innerText = exclusiveOr(firstVar, secondVar);
                 break;
         }
 
@@ -76,7 +80,9 @@ export const GeneratingUnit = ({ width }) => {
     };
 
     return (
-        <div className={`generating-unit align-text-middle col-${width}`}>
+        <div
+            className={`generating-unit align-text-middle col-${width} col-sm-${sm} col-md-${md} col-lg-${lg} col-xl-${xl}`}
+        >
             <Button
                 className="w-100 text-wrap"
                 variant="secondary"
@@ -86,26 +92,21 @@ export const GeneratingUnit = ({ width }) => {
                 value={unitShowing ? 'Hide' : 'Additional expressions'}
             ></Button>
             {unitShowing && (
-                <div className="generating-unit-main mx-auto ">
+                <div className="generating-unit-main mx-auto p-1">
                     <Form className="pt-2 mx-auto">
                         <Form.Control as="select" ref={dropdownRef}>
                             <option value={1} defaultValue>
                                 Pierce Arrow
                             </option>
                             <option value={2}>Sheffer stroke</option>
+                            <option value={3}>Exclusive OR</option>
                         </Form.Control>
                         <Form.Group className="d-inline-block p-1 m-0 col-6">
-                            <Form.Control
-                                placeholder="First var"
-                                ref={firstVarRef}
-                            />
+                            <Form.Control placeholder="First var" ref={firstVarRef} />
                         </Form.Group>
 
                         <Form.Group className="d-inline-block p-1 m-0 col-6">
-                            <Form.Control
-                                placeholder="Second var"
-                                ref={secondVarRef}
-                            />
+                            <Form.Control placeholder="Second var" ref={secondVarRef} />
                         </Form.Group>
                         <div className="d-flex m-2 justify-content-center">
                             <Button
@@ -116,15 +117,11 @@ export const GeneratingUnit = ({ width }) => {
                                 Submit
                             </Button>
                         </div>
-                        <div className="row">
-                            <Form.Control
-                                className="d-inline col-8 mx-1"
-                                as="label"
-                                ref={resultRef}
-                            />
+                        <div className="row d-flex justify-content-center">
+                            <Form.Control className="d-inline col-10 mx-1" as="label" ref={resultRef} />
                             <Button
-                                size="xl"
-                                className="d-inline h-50 col-3 mx-1"
+                                // size="xl"
+                                className="d-inline h-50 col-xl-5 col-lg-4 col-md-4 mx-1 justify-content-center"
                                 variant="success"
                                 onClick={() => copyHandler()}
                             >

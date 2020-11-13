@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-export const ExpressionInput = ({ onSubmit, width }) => {
+export const ExpressionInput = ({ onSubmit, sm, md, lg, xl, width }) => {
     const inputRef = React.createRef();
 
     return (
         
-            <div className={`col-${width}`}>
+            <div className={`col-sm-${sm} col-md-${md} col-lg-${lg} col-xl-${xl} col-${width}`}>
                 <Form className="p-3">
                     <Form.Group>
                         <Form.Label>Enter logical expression</Form.Label>

@@ -6,7 +6,7 @@ export const Alert = ({type, text}) => {
     const [show, setShow] = useState(true);
 
     return (
-        <Row className="m-1">
+        <Row className="mr-1">
             <Col>
                 <Toast
                     className={`alert-${type.toLowerCase()}`}

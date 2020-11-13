@@ -1,0 +1,11 @@
+{
+  "name": "@session-knip/general",
+  "version": "1.0.0",
+  "description": "modules for both backend and frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Max Fedko <sessionknip@gmail.com> (session-kniP)",
+  "license": "ISC"
+}

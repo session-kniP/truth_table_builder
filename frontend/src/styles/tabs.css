@@ -1,0 +1,11 @@
+.tabs {
+    background-color: #a9dad3;
+}
+
+.tabs-text {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(236, 236, 236, 1) 0%, rgba(93, 255, 240, 0.5606617647058824) 100%);
+
+    padding: 0.5rem;
+    border-radius: 5px;
+}

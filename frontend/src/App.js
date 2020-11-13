@@ -34,10 +34,10 @@ function App() {
             <ApplicationContext.Provider value={{ showToast }}>
                 <NavBar />
                 <div className="row pt-3 m-0">
-                    <div className="col-3"></div>
+                    <div className="col-xl-2 px-0"></div>
 
-                    <div className="col-6">{routes}</div>
-                    <div className="col-3">
+                    <div className="col-xl-8">{routes}</div>
+                    <div className="col-xl-2 px-0">
                         {toasts.map((t) => t)}
                     </div>
                 </div>
