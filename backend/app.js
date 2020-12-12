@@ -41,5 +41,5 @@ app.listen(8000, () => {
 
     const origins = v4.map((el) => `http://${el.address}`);
     console.log(`Server started on port ${PORT}`);
-    console.log(`Allowed remotes (for API): ${origins.map((el) => `\n${el}:${PORT}`)}`);
+    console.log(`Allowed remotes (for API): ${origins.map((el) => `\n\t${el}:${PORT}`)}`);
 });

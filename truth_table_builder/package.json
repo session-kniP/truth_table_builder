@@ -1,14 +1,15 @@
 {
-  "name": "@session-knip/truth_table_builder",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Max Fedko <sessionknip@gmail.com> (session-kniP)",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@session-knip/general": "file:../general"
-  }
+    "name": "@session-knip/truth_table_builder",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha ./test/Parser.test.js"
+    },
+    "author": "Max Fedko <sessionknip@gmail.com> (session-kniP)",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@session-knip/general": "file:../general",
+        "mocha": "^8.2.1"
+    }
 }

@@ -47,6 +47,7 @@ export const useRequest = () => {
                     type === RequestDataType.JSON
                         ? dataResponse.json()
                         : dataResponse;
+                console.log('RESPONSE', response);
 
                 if (dataResponse.status !== HttpStatus.OK) {
                     let message;

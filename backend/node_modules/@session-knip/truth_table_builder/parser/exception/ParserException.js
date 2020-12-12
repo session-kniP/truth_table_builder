@@ -1,14 +1,11 @@
-const {ChainException} = require('@session-knip/general');
+const { ChainException } = require('@session-knip/general');
 
 class ParserException extends ChainException {
-    constructor({ message, cause }) {
-        super({ message: 'ParserException:\n' + message, cause });
+    constructor(message, cause) {
+        super(message, cause);
+        this.message = message;
         this.cause = cause;
-    }
-
-    stackTrace() {
-        const trace = super.stackTrace();
-        return `${this.message}\n${trace}`
+        this.name = 'ParserException';
     }
 }
 

@@ -36,6 +36,8 @@ export const useHttpRequest = () => {
                     type,
                 });
 
+                console.log('RESPONSE', response);
+
                 return type === RequestDataType.IMAGE_JPEG
                     ? response.blob()
                     : response;

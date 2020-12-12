@@ -21,12 +21,18 @@ const TokenType = Object.freeze({
     LB: ['('],
     RB: [')'],
 
-    EOF: '\0',
+    EOF: ['\0'],
 
     of(charSet) {
-        return TokenType[
-            Object.keys(TokenType).find((k) => TokenType[k].includes(charSet))
-        ];
+        try {
+            const type = Object.keys(TokenType).find((k) => TokenType[k].includes(charSet));
+
+            console.log(type);
+            return type ? TokenType[type] : null;
+        } catch (e) {
+            //in case 'find' reached 'of' method
+            return null;
+        }
     },
 });
 

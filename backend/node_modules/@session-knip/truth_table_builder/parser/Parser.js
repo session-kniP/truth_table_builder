@@ -28,7 +28,7 @@ class Parser {
                 this.lastInput = input;
                 this.lexer.tokenize(input);
                 this.tokens = this.lexer.tokens;
-            } else if(this.tokens && this.lastInput == input) {
+            } else if (this.tokens && this.lastInput == input) {
                 return this.expressions;
             }
 
@@ -41,10 +41,8 @@ class Parser {
 
             return this.expressions;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse token set",
-                cause: e,
-            });
+            console.error(e);
+            throw new ParserException("Can't parse token set", e);
         }
     }
 
@@ -85,11 +83,7 @@ class Parser {
                 const current = this.peek(0);
                 if (current.type === TokenType.EQUIV) {
                     this.absPos++;
-                    expr = new BinaryExpression(
-                        TokenType.EQUIV,
-                        expr,
-                        this.parseImpl()
-                    );
+                    expr = new BinaryExpression(TokenType.EQUIV, expr, this.parseImpl());
                     this.expressionTree.push(expr);
                     continue;
                 }
@@ -98,10 +92,7 @@ class Parser {
 
             return expr;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse equivalence token",
-                cause: e,
-            });
+            throw new ParserException("Can't parse equivalence token", e);
         }
     }
 
@@ -113,11 +104,7 @@ class Parser {
                 const current = this.peek(0);
                 if (current.type === TokenType.IMPL) {
                     this.absPos++;
-                    expr = new BinaryExpression(
-                        TokenType.IMPL,
-                        expr,
-                        this.parseDisj()
-                    );
+                    expr = new BinaryExpression(TokenType.IMPL, expr, this.parseDisj());
                     this.expressionTree.push(expr);
                     continue;
                 }
@@ -126,10 +113,7 @@ class Parser {
 
             return expr;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse implication token",
-                cause: e,
-            });
+            throw new ParserException("Can't parse implication token", e);
         }
     }
 
@@ -142,11 +126,7 @@ class Parser {
                 if (current.type === TokenType.DISJ) {
                     this.absPos++;
 
-                    expr = new BinaryExpression(
-                        TokenType.DISJ,
-                        expr,
-                        this.parseConj()
-                    );
+                    expr = new BinaryExpression(TokenType.DISJ, expr, this.parseConj());
                     this.expressionTree.push(expr);
                     continue;
                 }
@@ -155,10 +135,7 @@ class Parser {
 
             return expr;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse disjunction token",
-                cause: e,
-            });
+            throw new ParserException("Can't parse disjunction token", e);
         }
     }
 
@@ -171,11 +148,7 @@ class Parser {
                 if (current.type === TokenType.CONJ) {
                     this.absPos++;
 
-                    expr = new BinaryExpression(
-                        TokenType.CONJ,
-                        expr,
-                        this.parseUnary()
-                    );
+                    expr = new BinaryExpression(TokenType.CONJ, expr, this.parseUnary());
                     this.expressionTree.push(expr);
                     continue;
                 }
@@ -184,10 +157,7 @@ class Parser {
 
             return expr;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse conjunction token",
-                cause: e,
-            });
+            throw new ParserException("Can't parse conjunction token", e);
         }
     }
 
@@ -198,11 +168,11 @@ class Parser {
             while (true) {
                 const current = this.peek(0);
                 if (current.type === TokenType.NOT) {
+                    if (expr instanceof ValExpression) {
+                        throw new ParserException('Unknown token under', `${expr.name}${current.value}`);
+                    }
                     this.absPos++;
-                    expr = new UnaryExpression(
-                        TokenType.NOT,
-                        this.parsePrimary()
-                    );
+                    expr = new UnaryExpression(TokenType.NOT, this.parsePrimary());
                     this.expressionTree.push(expr);
                     continue;
                 }
@@ -211,10 +181,7 @@ class Parser {
 
             return expr;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse unary operation token",
-                cause: e,
-            });
+            throw new ParserException("Can't parse unary operation token", e);
         }
     }
 
@@ -224,7 +191,7 @@ class Parser {
 
             if (current.type === TokenType.VAR) {
                 this.absPos++;
-                const value = new ValExpression({name: current.value, val: null});
+                const value = new ValExpression({ name: current.value, val: null });
                 this.values.push(value);
                 return value;
             }
@@ -234,11 +201,11 @@ class Parser {
                 this.absPos++;
                 return result;
             }
+            if (!current.type) {
+                throw new ParserException('Unknown token', current);
+            }
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse primary token",
-                cause: e,
-            });
+            throw new ParserException("Can't parse primary token", e);
         }
     }
 
@@ -252,13 +219,9 @@ class Parser {
 
             return this.tokens[position];
         } catch (e) {
-            throw new ParserException({
-                message: "Can't peek a token",
-                cause: e,
-            });
+            throw new ParserException("Can't peek a token", e);
         }
     }
-
 }
 
 module.exports = Parser;

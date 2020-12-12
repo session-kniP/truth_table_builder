@@ -14,9 +14,9 @@ const OperatorParts = Object.freeze(['-', '>', '/', '\\']);
 
 const PunctuationSymbols = Object.freeze([' ']);
 
-const lettersAndNumbers = /[a-zA-Z0-9]/;
+const LettersAndNumbers = /[a-zA-Z0-9]/;
 
 exports.LogicalOperators = LogicalOperators;
 exports.OperatorParts = OperatorParts;
 exports.PunctuationSymbols = PunctuationSymbols;
-exports.lettersAndNumbers = lettersAndNumbers;
+exports.LettersAndNumbers = LettersAndNumbers;

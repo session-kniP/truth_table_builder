@@ -6,9 +6,7 @@ const TrurhTable = require('./TruthTable');
 
 class LogicalExpression {
     constructor(expression, isCaseInsensitive) {
-        this.expression = isCaseInsensitive
-            ? expression.toUpperCase()
-            : expression;
+        this.expression = isCaseInsensitive ? expression.toUpperCase() : expression;
         this.truthTable = [];
         this.parser = new Parser(new Lexer());
     }
@@ -33,9 +31,7 @@ class LogicalExpression {
             this.parser.parse(this.expression);
 
             const truthTable = new TrurhTable(
-                tokenNames.concat(
-                    this.parser.expressionTree.map((expr) => expr.toString())
-                )
+                tokenNames.concat(this.parser.expressionTree.map((expr) => expr.toString()))
             );
 
             combinations.forEach((row) => {
@@ -54,10 +50,7 @@ class LogicalExpression {
 
             return truthTable;
         } catch (e) {
-            throw new ChainException({
-                message: 'Truth table exception',
-                cause: e,
-            });
+            throw new ChainException('Truth table exception', e);
         }
     }
 
@@ -100,10 +93,7 @@ class LogicalExpression {
         return tokenSet
             ? tokenSet
                   .filter((t) => t.type === TokenType.VAR)
-                  .filter(
-                      (val, idx, self) =>
-                          self.findIndex((el) => el.value === val.value) === idx
-                  )
+                  .filter((val, idx, self) => self.findIndex((el) => el.value === val.value) === idx)
                   .map((t) => t.value)
             : [];
     }
@@ -115,9 +105,7 @@ class LogicalExpression {
 
     toString() {
         return this.parser.expressions.length > 0
-            ? this.parser.expressions
-                  .reduce((str, e) => str + e.toString())
-                  .toString()
+            ? this.parser.expressions.reduce((str, e) => str + e.toString()).toString()
             : '';
     }
 }
