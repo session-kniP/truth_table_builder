@@ -47,7 +47,6 @@ export const useRequest = () => {
                     type === RequestDataType.JSON
                         ? dataResponse.json()
                         : dataResponse;
-                console.log('RESPONSE', response);
 
                 if (dataResponse.status !== HttpStatus.OK) {
                     let message;
@@ -57,13 +56,13 @@ export const useRequest = () => {
 
                     throw new HttpException({
                         message: message,
-                        code: dataResponse.status,
+                        statusCode: dataResponse.status,
                     });
                 }
 
                 return response;
             } catch (e) {
-                if (!e.code) {
+                if (!e.statusCode) {
                     throw new HttpException({
                         message: 'Server is not responding',
                         cause: e,
@@ -71,7 +70,7 @@ export const useRequest = () => {
                 } else {
                     throw new HttpException({
                         message: "Can't execute request",
-                        code: e.code,
+                        code: e.statusCode,
                         cause: e,
                     });
                 }

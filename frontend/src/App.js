@@ -20,12 +20,7 @@ function App() {
 
         setToasts([
             ...toasts,
-            <Alert
-                key={toasts.length}
-                type={type}
-                text={text}
-                removeToast={removeToast}
-            />,
+            <Alert key={toasts.length} type={type} text={text} removeToast={removeToast} />,
         ]);
     };
 
@@ -37,9 +32,7 @@ function App() {
                     <div className="col-xl-2 px-0"></div>
 
                     <div className="col-xl-8">{routes}</div>
-                    <div className="col-xl-2 px-0">
-                        {toasts.map((t) => t)}
-                    </div>
+                    <div className="col-xl-2 px-0">{toasts.map((t) => t)}</div>
                 </div>
             </ApplicationContext.Provider>
         </div>

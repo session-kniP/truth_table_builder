@@ -41,7 +41,6 @@ class Parser {
 
             return this.expressions;
         } catch (e) {
-            console.error(e);
             throw new ParserException("Can't parse token set", e);
         }
     }
@@ -68,10 +67,7 @@ class Parser {
             //this.expressionTree.push(result);
             return result;
         } catch (e) {
-            throw new ParserException({
-                message: "Can't parse expression",
-                cause: e,
-            });
+            throw new ParserException("Can't parse expression", e);
         }
     }
 
@@ -169,7 +165,7 @@ class Parser {
                 const current = this.peek(0);
                 if (current.type === TokenType.NOT) {
                     if (expr instanceof ValExpression) {
-                        throw new ParserException('Unknown token under', `${expr.name}${current.value}`);
+                        throw new ParserException(`Unknown token under ${expr.name}${current.value}`);
                     }
                     this.absPos++;
                     expr = new UnaryExpression(TokenType.NOT, this.parsePrimary());
@@ -202,7 +198,7 @@ class Parser {
                 return result;
             }
             if (!current.type) {
-                throw new ParserException('Unknown token', current);
+                throw new ParserException(`Unknown token ${current.type}`);
             }
         } catch (e) {
             throw new ParserException("Can't parse primary token", e);

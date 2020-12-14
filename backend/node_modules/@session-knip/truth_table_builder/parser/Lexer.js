@@ -2,6 +2,7 @@ const Token = require('./token/Token');
 const TokenType = require('./token/TokenType');
 const SyntaxElements = require('./SyntaxElements');
 const ChainException = require('@session-knip/general/exception/ChainException');
+const LexerException = require('./exception/LexerException');
 const LogicalOperators = SyntaxElements.LogicalOperators;
 const OperatorParts = SyntaxElements.OperatorParts;
 const PunctuationSymbols = SyntaxElements.PunctuationSymbols;
@@ -18,7 +19,6 @@ class Lexer {
      * @param {String} input
      */
     tokenize(input) {
-        console.log('TOKENIZING IN LEXER...')
         this.input = input;
 
         const currSeq = [];
@@ -58,7 +58,7 @@ class Lexer {
                         }
                         this.tokenizeVariable(currSeq.filter((el) => el !== ' ').join(''));
                     } else if (OperatorParts.includes(this.peek(0))) {
-                        throw new Error('Unexpected token', this.peek(0));
+                        throw new LexerException(`Unexpected token ${this.peek(0)}`);
                     }
                 }
 
@@ -66,7 +66,7 @@ class Lexer {
                 clearSeq();
             }
         } catch (e) {
-            throw new ChainException(`Unexpected token ${this.peek(0)}`);
+            throw new LexerException(`Unexpected token ${this.peek(0)}`);
         }
         if (currSeq.length != 0) {
             this.tokenizeVariable(currSeq.join(''));
@@ -77,7 +77,7 @@ class Lexer {
         try {
             this.tokens.push(new Token(TokenType.of(operator)));
         } catch(e) {
-            console.error(e);
+            throw new LexerException(`Can't tokenize operator ${operator}`)
         }
     }
 

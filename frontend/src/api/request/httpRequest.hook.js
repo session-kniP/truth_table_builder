@@ -14,13 +14,7 @@ export const useHttpRequest = () => {
     const history = useHistory();
 
     const httpRequest = useCallback(
-        async ({
-            url,
-            method = 'GET',
-            headers = {},
-            body = null,
-            type = RequestDataType.JSON,
-        }) => {
+        async ({ url, method = 'GET', headers = {}, body = null, type = RequestDataType.JSON }) => {
             try {
                 //const token = localStorage.getItem(TOKEN_NAME);
 
@@ -36,31 +30,23 @@ export const useHttpRequest = () => {
                     type,
                 });
 
-                console.log('RESPONSE', response);
-
-                return type === RequestDataType.IMAGE_JPEG
-                    ? response.blob()
-                    : response;
+                return type === RequestDataType.IMAGE_JPEG ? response.blob() : response;
             } catch (e) {
-                if (!e.code) {
+                if (!e.statusCode) {
                     //logout();
-                    throw new ChainException({ message: e.message, cause: e });
+                    throw new ChainException(e.message, e);
                 }
 
                 if (
-                    e.code === HttpStatus.FORBIDDEN ||
-                    e.code === HttpStatus.INTERNAL_SERVER_ERROR ||
-                    !e.code
+                    e.statusCode === HttpStatus.FORBIDDEN ||
+                    e.statusCode === HttpStatus.INTERNAL_SERVER_ERROR ||
+                    !e.statusCode
                 ) {
-                    console.log('net');
                     //logout();
                     history.go();
                 }
 
-                throw new ChainException({
-                    message: e.cause.message,
-                    cause: e,
-                });
+                throw new ChainException(`${e.cause.message}: ${e.getRootMessage()}`, e);
             }
         },
         []

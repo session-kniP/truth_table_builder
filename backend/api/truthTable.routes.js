@@ -13,7 +13,7 @@ router.post('/parse', (request, response) => {
 
         response.status(HttpStatus.OK).json({ truthTable: logicalExpression.getTruthTable() });
     } catch (e) {
-        console.log(console.log({ message: e.getRootMessage() }));
+        console.log(console.log('ROOT MESSAGE', { message: e.getRootMessage() }, 'ROOT MESSAGE ENDS'));
         response.status(HttpStatus.UNPROCESSABLE_ENTITY).json({ message: e.getRootMessage() });
     }
 });
